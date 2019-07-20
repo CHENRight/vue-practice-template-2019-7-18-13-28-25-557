@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <input placeholder="please input the counter number. " v-model = "counterNum"/>
-    <counter-group :counterNum = parseInt(counterNum)></counter-group>
+    <counter></counter>
   </div>
 </template>
 
 <script>
-import counterGroup from './components/counterGroup.vue'
+//import counterGroup from './components/counterGroup.vue'
+import counter from './components/counter.vue'
 export default {
   name: 'app',
   components: {
-    counterGroup,
+    //counterGroup,
+    counter,
   },
   data() {
     return{
