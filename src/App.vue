@@ -1,29 +1,20 @@
 <template>
   <div id="app">
-<!--    <input placeholder="please input the counter number. " v-model = "counterNum"/>-->
-<!--    <CounterGroup></CounterGroup>-->
-<!--    <CountSum></CountSum>-->
-    <toDoList/>
+    <input placeholder="please input the counter number. " v-model = "counterNum"/>
+    <counter-group :counterNum = parseInt(counterNum)></counter-group>
   </div>
 </template>
 
 <script>
-// import counterGroup from './components/counterGroup.vue'
-// import countSum from './components/counterSum'
-import toDoList from './components/toDoList.vue'
-
+import counterGroup from './components/counterGroup.vue'
 export default {
   name: 'app',
   components: {
-    // HelloWorld,
-
-    // counterGroup,
-    // countSum
-    toDoList
+    counterGroup,
   },
   data() {
     return{
-      counterNum : this.counterNum
+      counterNum : 0
     }
   },
   props(){
