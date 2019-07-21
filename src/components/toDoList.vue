@@ -77,7 +77,32 @@
                     this.newItem = '',
                     this.listIndex++
             },
-            
+            removeToDo(listItem) {
+                this.showList = this.showList.filter(item => !(item.id === listItem.id))
+            },
+            setItemCompleted(listItem) {
+                listItem.completed = !listItem.completed
+            },
+            filterByCondition(filterCondition) {
+                this.filterCondition = filterCondition;
+            },
+            returnList() {
+                if (this.filterCondition === "ACTIVE") {
+                    return this.showList.filter(item => !item.completed)
+                }
+                if (this.filterCondition === "COMPLETE") {
+                    return this.showList.filter(item => item.completed)
+                }
+                return this.showList;
+            },
+            addToComplete(listItem) {
+                listItem.data = this.tempToDo;
+                listItem.removeItem = false;
+                this.tempToDo = ''
+            },
+            setItemActive(listItem) {
+                listItem.removeItem = true;
+            }
         },
     }
 </script>
