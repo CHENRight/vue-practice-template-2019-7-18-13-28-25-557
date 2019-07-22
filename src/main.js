@@ -11,14 +11,23 @@ const store = new Vuex.Store({
     sum:0
   },
   mutations: {
+    //变更状态
+    // increment (state, n) {     n是参数,多数情况下参数都是   对象（payload）
+    //   state.count += n
+    // }
     increase (state) {
-      return state.sum++
+       state.sum++
     },
     decrease(state){
-      return state.sum--
+       state.sum--
+    },
+    resetSum(state,payload){
+      state.sum = state.sum - payload.countNum
     }
   },
-
+  getters: {
+    paySum: state => state.sum
+  }
 })
 
 new Vue({store,

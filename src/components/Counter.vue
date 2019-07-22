@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
     export default {
         name: "counter",
         data() {
@@ -23,7 +24,12 @@
                 this.count++;
                 this.$store.commit('increase')
             }
-        }
+        },
+        beforeDestroy() {
+            this.$store.commit('resetSum',{
+                countNum:this.count
+            })
+        },
     }
 </script>
 

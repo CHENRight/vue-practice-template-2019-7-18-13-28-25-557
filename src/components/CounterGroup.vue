@@ -4,7 +4,7 @@
             <counter></counter>
         </div>
         <div>
-            <p>All counter's total value is：  {{countSum}}</p>
+            <p>All counter's total value is：  {{this.$store.getters.paySum}}</p>
         </div>
     </div>
 </template>
@@ -22,12 +22,6 @@
         props: {
             counterNum : Number
         },
-
-        computed:{
-            countSum(){
-                return this.$store.state.sum
-            }
-        }
     }
 </script>
 
