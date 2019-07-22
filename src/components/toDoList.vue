@@ -5,45 +5,33 @@
             <em>simple Todo List with adding and filter by diff status.</em>
             <br/>
             <input class="input1" type="text" v-model="newItem"
-                   placeholder="please enter your new item^_^"
+                   placeholder="enter your new item"
                    v-on:keyup.enter="addNewItem"/>
             <button class="add" v-on:click="addNewItem">Add</button>
             <br/><br/>
-
             <div>
-                <div v-for="(item,index) in returnList()" v-bind:key="item.id"
+                <div v-for="(item,index) in returnList()" v-bind:key="item.id "
                      class="div3" v-on:change="addNewItem">
                     <span v-if="item.addToComplete">{{ index++ }}.</span>
                     <span v-else> {{ index++ }}.</span>
                     <div class="listShowDiv">
                         <div class="listShow">
-                            <div v-if="item.removeItem" class="completedItem">
-                                <input type="text" v-model="newItem"
-                                       v-on:keyup.enter="addToComplete(item)">
-                            </div>
-                            <div v-else class="notCompletedItem">
-                                <input type="checkbox" v-model="item.completed"
-                                       class="input2"
-                                       v-on:click="setItemCompleted(item)">
-                                <span v-if="item.completed"
-                                      class="toDoCompleted">{{item.data}}</span>
-                                <span v-else v-on:dblclick="setItemActive(item)">{{item.data}}</span>
-                            </div>
+                            <input type="checkbox" v-model="item.completed"
+                                   class="input2"
+                                   v-on:click="setItemCompleted(item)">
+                            <span v-if="item.completed"
+                                  class="toDoCompleted">{{item.data}}</span>
+                            <span v-else v-on:dblclick="setItemActive(item)">{{item.data}}</span>
                         </div>
-                    </div>
-                    <div v-if="!item.removeItem"
-                         v-on:click="removeToDo(item)"
-                         class="toDoDeleteDiv">
-                        <span>&times;</span>
                     </div>
                 </div>
             </div>
 
             <div>
                 <div class="selectButton">
-                    <a href="#" v-on:click="filterByCondition('ALL')">ALL</a>
-                    <a href="#" v-on:click="filterByCondition('ACTIVE')">ACTIVE</a>
-                    <a href="#" v-on:click="filterByCondition('COMPLETE')">COMPLETE</a>
+                    <a href="#" v-on:click="setFilterCondition('ALL')">ALL</a>
+                    <a href="#" v-on:click="setFilterCondition('ACTIVE')">ACTIVE</a>
+                    <a href="#" v-on:click="setFilterCondition('COMPLETE')">COMPLETE</a>
                 </div>
             </div>
 
@@ -71,19 +59,15 @@
                 this.showList.push({
                     id: this.listIndex,
                     data: this.newItem,
-                    completed: false,
-                    removeItem: false
+                    completed: false
                 }),
                     this.newItem = '',
                     this.listIndex++
             },
-            removeToDo(listItem) {
-                this.showList = this.showList.filter(item => !(item.id === listItem.id))
-            },
             setItemCompleted(listItem) {
                 listItem.completed = !listItem.completed
             },
-            filterByCondition(filterCondition) {
+            setFilterCondition(filterCondition) {
                 this.filterCondition = filterCondition;
             },
             returnList() {
@@ -117,9 +101,9 @@
     .div2 {
         background-color: white;
         border-radius: 5px;
-        border: #42b983 20px solid;
+        border:outset darkolivegreen 5px;
         padding: 30px;
-        width: 500px;
+        width: 450px;
         height: auto;
         margin: auto;
     }
@@ -147,7 +131,7 @@
         margin-top: 20px;
         padding: 10px;
         border-radius: 5px;
-        font-size: 25px;
+        font-size: 20px;
     }
 
     .div3:nth-child(odd) {
@@ -170,18 +154,9 @@
     }
 
     .selectButton a {
-        text-decoration: none;
         outline: none;
         color: darksalmon;
         margin: 15px;
-    }
-
-    .completedItem {
-        display: inline-block;
-    }
-
-    .notCompletedItem {
-        display: inline-block;
     }
 
     .toDoCompleted {
