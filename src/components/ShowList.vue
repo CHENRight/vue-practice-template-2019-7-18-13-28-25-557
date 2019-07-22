@@ -1,7 +1,7 @@
 <template>
     <div id="ShowList" class="div3">
-        <ol>
-            <ListItem v-for="item of items" :item="item" v-bind:key="item.listIndex" @change="emitChange" @modified="(val) => emitModify(item.id, val)"/>
+        <ol v-for="(item,index) in lists" :index="index">
+            <ListItem :index="index"/>
         </ol>
     </div>
 </template>
@@ -13,17 +13,20 @@
         components:{
           ListItem
         },
-        props: {
-            items: {
-                default: []
-            }
-        },
-        methods: {
-            emitChange() {
-                this.$emit("change");
+        computed:{
+            status(){
+                return this.$store.state.status
             },
-            emitModify(id, val) {
-                this.$emit("modified", id, val);
+            lists:{
+                get(){
+                    if (this.status === 0) {
+                        return this.$store.state.lists;
+                    } else if (this.status === 1) {
+                        return this.$store.state.lists.filter((a) => a.completed)
+                    }else{
+                        return this.$store.state.lists.filter((a) => !a.completed)
+                    }
+                }
             }
         }
     }

@@ -1,8 +1,8 @@
 <template>
     <div id="ListItem">
         <li>
-            <input type="checkbox" @change="emitBoxChange" v-model="item.completed" class="input2"/>
-            <span contenteditable="true" @blur="emitModify" > {{ item.content }}</span>
+            <input type="checkbox" @change="emitBoxChange" v-model="listItem.completed" class="input2"/>
+            <span contenteditable="true" @blur="emitModify" > {{ listItem.content }}</span>
         </li>
     </div>
 </template>
@@ -11,16 +11,21 @@
 
     export default {
         name: "ListItem",
-
         props:{
-            item:{},
+          index: Number
+        },
+        computed:{
+          listItem(){
+              return this.$store.state.lists[this.index];
+          }
         },
         methods:{
             emitBoxChange(){
-                this.$emit("change");
+                this.$store.commit('updateCompleted',{index: this.index, complete: this.listItem.completed})
             },
             emitModify(e){
-                this.$emit("modify",e.target.innerText)
+                this.$store.commit('updateMsg',{index: this.index, updateMsg: e.target.innerText})
+
             }
         }
 

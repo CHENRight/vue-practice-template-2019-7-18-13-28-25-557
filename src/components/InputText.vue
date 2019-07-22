@@ -17,8 +17,7 @@
         },
         methods:{
             emitChange() {
-                this.$emit("change",this.newItem);
-                this.newItem = ''
+                this.$store.commit('addItem',{ id: this.listIndex, content: this.newItem, completed: false })
             }
         }
     }

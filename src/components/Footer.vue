@@ -1,9 +1,9 @@
 <template>
     <div id="Footer">
         <div class="selectButton">
-            <a href="#" v-on:click="emitChange('ALL')">ALL</a>
-            <a href="#" v-on:click="emitChange('ACTIVE')">ACTIVE</a>
-            <a href="#" @click="emitChange('COMPLETED')">COMPLETE</a>
+            <a href="#" @click="emitChange(0)">ALL</a>
+            <a href="#" @click="emitChange(1)">ACTIVE</a>
+            <a href="#" @click="emitChange(2)">COMPLETE</a>
         </div>
     </div>
 </template>
@@ -11,15 +11,10 @@
 <script>
     export default {
         name: "Footer",
-        data(){
-            return{
-                filterCondition:"ALL"
-            }
-        },
         methods: {
 
             emitChange(filterCondition){
-                this.$emit("change",filterCondition)
+                this.$store.commit('updateStatus',filterCondition)
             }
         },
 

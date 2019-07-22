@@ -2,10 +2,10 @@
   <div id="app" class="div1">
     <div class="div2">
       <Header></Header>
-      <InputText :newItem="newItem" @change="(val) => addNewItem(val)"></InputText>
+      <InputText></InputText>
       <br/>
-      <ShowList :items="returnList()" @modified="(id,val) => modified(id,val)"/>
-      <Footer :filterCondition="filterCondition" @change="(val) => this.filterCondition = val"/>
+      <ShowList/>
+      <Footer/>
 
     </div>
 
@@ -26,35 +26,6 @@ export default {
     InputText,
     ShowList,
     Footer
-  },
-  data() {
-    return{
-      newItem:'',
-      listIndex: 1,
-      showList:[],
-      filterCondition:"ALL"
-    }
-  },
-  props(){
-
-  },
-  methods:{
-    addNewItem (val) {
-      this.showList.push({ id: this.listIndex, content: val, completed: false });
-      this.listIndex++
-    },
-    returnList() {
-      if (this.filterCondition === "ACTIVE") {
-        return this.showList.filter(item => !item.completed)
-      }
-      if (this.filterCondition === "COMPLETE") {
-        return this.showList.filter(item => item.completed)
-      }
-      return this.showList;
-    },
-    modified(id, val) {
-      this.showList.find((item) => item.id === id).content = val;
-    }
   }
 }
 </script>
