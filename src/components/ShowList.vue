@@ -14,20 +14,13 @@
     export default {
         name: 'List',
         computed: {
-            // status(){
-            //     return this.$store.state.status;
-            // },
-            // itemsShow: function () {
-            //     return this.$store.getters.getShowList(this.status)
-            // }
             ...mapGetters([
                 'getShowList'
             ])
         },
         methods: {
             updateItem(e) {
-                this.$store.dispatch('UpdateItemContent',{id: e.target.id, content: e.target.innerText});
-                //this.$store.commit('updateItem', {id: e.target.id, content: e.target.innerText});
+                this.$store.commit('updateItem', {id: e.target.id, content: e.target.innerText});
             }
         }
     }

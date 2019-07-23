@@ -1,5 +1,5 @@
-
 export default {
+
     getShowList: (state) => {
         if (state.status === 0) {
             return state.items;
@@ -9,4 +9,5 @@ export default {
             return state.items.filter((item) => item.isChecked)
         }
     }
+
 }

@@ -2,45 +2,41 @@
   <div id="app" class="container">
     <div>
       <h2>Jquery To Do List</h2>
-      <p><em>Simple Todo List with adding and filter by diff status.</em></p>
+      <br />
+      <em>Simple Todo List with adding and filter by diff status.</em>
+      <input type="text" class="input-text"
+             v-model="item" placeholder="please enter message.">
+      <div id="button" @click="addNewItem">Add</div>
     </div>
-    <div>
-      <input type="text" class="input-text" name="ListItem" v-model="item">
-      <div id="button" @click="addItem">Add</div>
-    </div>
-    <todolist></todolist>
-    <foot @change="changeShow"></foot>
+    <showList></showList>
+    <Footer @change="changeStatus"></Footer>
   </div>
 
 </template>
 
 <script>
-  import todolist from './components/ShowList.vue'
-  import foot from './components/Footer.vue'
+  import showList from './components/ShowList.vue'
+  import Footer from './components/Footer.vue'
   export default {
     name: 'app',
     components: {
-      todolist,
-      foot
+      showList,
+      Footer,
     },
     data() {
       return {
         items: [],
         item: "",
-        itemsCopy:[],
       }
     },
     methods: {
-      addItem(){
-        this.$store.dispatch('AddItem',{content:this.item,isChecked:false,id:Date.parse(new Date())});
+      addNewItem(){
+        this.$store.commit('addNewItem',{content:this.item,isChecked:false,id:Date.parse(new Date())});
         this.item = "";
       },
-      changeShow(flag){
-        this.state = flag;
+      changeStatus(status){
+        this.$store.state.status = status;
       }
-    },
-    mounted(){
-      this.$store.dispatch('loadList');
     },
   }
 </script>
@@ -105,13 +101,6 @@
     cursor: pointer;
   }
 
-  #filters{
-    text-align: center;
-    margin-bottom: -10px;
-    margin-top: 40px;
-
-  }
-
   #filters li a {
     color: #fc999b;
     margin: 3px;
@@ -121,10 +110,8 @@
     border-radius: 3px;
   }
 
-  #filters li a.selected {
-    border-color: rgba(175, 47, 47, 0.2);
-  }
-  #filters li a.selected, #filters li a:hover {
+
+  #filters li, #filters li a:hover {
     border-color: rgba(175, 47, 47, 0.1);
   }
 
@@ -136,13 +123,4 @@
     outline: none;
   }
 
-  .checked {
-    color: #999;
-    text-decoration: line-through;
-  }
-
-  input[type=checkbox].done-todo {
-
-    margin: 5px 5px 2px 0;
-  }
 </style>
