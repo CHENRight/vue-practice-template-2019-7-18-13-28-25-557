@@ -1,57 +1,148 @@
 <template>
-  <div id="app" class="div1">
-    <div class="div2">
-      <Header></Header>
-      <InputText></InputText>
-      <br/>
-      <ShowList/>
-      <Footer/>
-
+  <div id="app" class="container">
+    <div>
+      <h2>Jquery To Do List</h2>
+      <p><em>Simple Todo List with adding and filter by diff status.</em></p>
     </div>
-
+    <div>
+      <input type="text" class="input-text" name="ListItem" v-model="item">
+      <div id="button" @click="addItem">Add</div>
+    </div>
+    <todolist></todolist>
+    <foot @change="changeShow"></foot>
   </div>
+
 </template>
 
 <script>
-
-import Header from "./components/Header.vue"
-import InputText from  "./components/InputText.vue"
-import ShowList from "./components/ShowList.vue"
-import Footer from  "./components/Footer.vue"
-
-export default {
-  name: 'app',
-  components: {
-    Header,
-    InputText,
-    ShowList,
-    Footer
+  import todolist from './components/ShowList.vue'
+  import foot from './components/Footer.vue'
+  export default {
+    name: 'app',
+    components: {
+      todolist,
+      foot
+    },
+    data() {
+      return {
+        items: [],
+        item: "",
+        itemsCopy:[],
+      }
+    },
+    methods: {
+      addItem(){
+        this.$store.dispatch('AddItem',{content:this.item,isChecked:false,id:Date.parse(new Date())});
+        this.item = "";
+      },
+      changeShow(flag){
+        this.state = flag;
+      }
+    },
+    mounted(){
+      this.$store.dispatch('loadList');
+    },
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin: 60px;
-}
+  body {
+    font: normal normal 13px/16px "Open Sans", sans-serif;
+    background: #ccc;
+  }
 
-.div1 {
-  padding: 20px;
-  height: 100%;
-  position: relative;
-}
+  .container{
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background: white;
+    border-radius: 5px;
+  }
 
-.div2 {
-  background-color: white;
-  border-radius: 5px;
-  border:outset darkolivegreen 5px;
-  padding: 30px;
-  width: 450px;
-  height: auto;
-  margin: auto;
-}
+  .input-text{
+    width: 70%;
+  }
+
+  input{
+    padding: 4px 15px 4px 0;
+
+  }
+
+  #button{
+    display: inline-block;
+    background-color:#fc999b;
+    color:#ffffff;
+    border-radius: 5px;
+    text-align:center;
+    margin-top:2px;
+    padding: 5px 15px;
+  }
+
+  #button:hover{
+    cursor: pointer;
+    opacity: .8;
+  }
+
+  ol {
+    padding-left: 20px;
+  }
+
+  ol li {
+    padding: 5px;color:#000;
+  }
+
+  ol li span{
+    word-break:break-all;
+    width: 70%;
+  }
+
+  ol li:nth-child(even){
+    background: #f4ecec;
+  }
+
+  li:hover{
+    cursor: pointer;
+  }
+
+  #filters{
+    text-align: center;
+    margin-bottom: -10px;
+    margin-top: 40px;
+
+  }
+
+  #filters li a {
+    color: #fc999b;
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+  }
+
+  #filters li a.selected {
+    border-color: rgba(175, 47, 47, 0.2);
+  }
+  #filters li a.selected, #filters li a:hover {
+    border-color: rgba(175, 47, 47, 0.1);
+  }
+
+  #filters li {
+    display: inline;
+    margin: 0 0 5px 0;
+    padding: 8px;
+    list-style: none;
+    outline: none;
+  }
+
+  .checked {
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  input[type=checkbox].done-todo {
+
+    margin: 5px 5px 2px 0;
+  }
 </style>

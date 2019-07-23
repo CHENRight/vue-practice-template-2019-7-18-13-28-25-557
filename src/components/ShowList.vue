@@ -1,46 +1,35 @@
 <template>
-    <div id="ShowList" class="div3">
-        <ol v-for="(item,index) in lists" :index="index">
-            <ListItem :index="index"/>
+    <div>
+        <ol>
+            <li v-for="(item) in getShowList" v-bind:key="item.id" v-bind:class="{checked:item.isChecked}"
+                :id="item.id">
+                <input name="done-todo" type="checkbox" class="done-todo" v-model="item.isChecked" >
+                <span v-bind:contenteditable="true" @blur="updateItem" :id="item.id">{{item.content}}</span>
+            </li>
         </ol>
     </div>
 </template>
-
 <script>
-    import ListItem from "./ListItem.vue"
+    import {mapGetters } from 'vuex';
     export default {
-        name: "ShowList",
-        components:{
-          ListItem
+        name: 'List',
+        computed: {
+            // status(){
+            //     return this.$store.state.status;
+            // },
+            // itemsShow: function () {
+            //     return this.$store.getters.getShowList(this.status)
+            // }
+            ...mapGetters([
+                'getShowList'
+            ])
         },
-        computed:{
-            status(){
-                return this.$store.state.status
-            },
-            lists:{
-                get(){
-                    if (this.status === 0) {
-                        return this.$store.state.lists;
-                    } else if (this.status === 1) {
-                        return this.$store.state.lists.filter((a) => a.completed)
-                    }else{
-                        return this.$store.state.lists.filter((a) => !a.completed)
-                    }
-                }
+        methods: {
+            updateItem(e) {
+                this.$store.dispatch('UpdateItemContent',{id: e.target.id, content: e.target.innerText});
+                //this.$store.commit('updateItem', {id: e.target.id, content: e.target.innerText});
             }
         }
     }
 </script>
-
-<style scoped>
-    .div3 {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 5px;
-        font-size: 20px;
-    }
-
-    .div3:nth-child(odd) {
-        background-color: lightcoral;
-    }
-</style>
+<style></style>
