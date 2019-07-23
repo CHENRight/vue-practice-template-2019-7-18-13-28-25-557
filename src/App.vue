@@ -1,148 +1,20 @@
 <template>
   <div id="app" class="container">
-    <div>
-      <h2>Jquery To Do List</h2>
-      <p><em>Simple Todo List with adding and filter by diff status.</em></p>
-    </div>
-    <div>
-      <input type="text" class="input-text" name="ListItem" v-model="item">
-      <div id="button" @click="addItem">Add</div>
-    </div>
-    <todolist></todolist>
-    <foot @change="changeShow"></foot>
+    <container></container>
   </div>
 
 </template>
 
 <script>
-  import todolist from './components/ShowList.vue'
-  import foot from './components/Footer.vue'
+  import container from './components/Container.vue'
   export default {
     name: 'app',
     components: {
-      todolist,
-      foot
-    },
-    data() {
-      return {
-        items: [],
-        item: "",
-        itemsCopy:[],
-      }
-    },
-    methods: {
-      addItem(){
-        this.$store.dispatch('AddItem',{content:this.item,isChecked:false,id:Date.parse(new Date())});
-        this.item = "";
-      },
-      changeShow(flag){
-        this.state = flag;
-      }
-    },
-    mounted(){
-      this.$store.dispatch('loadList');
-    },
+      container,
+    }
   }
 </script>
 
 <style>
-  body {
-    font: normal normal 13px/16px "Open Sans", sans-serif;
-    background: #ccc;
-  }
 
-  .container{
-    padding: 20px;
-    width: 400px;
-    margin: 0 auto;
-    margin-top: 40px;
-    background: white;
-    border-radius: 5px;
-  }
-
-  .input-text{
-    width: 70%;
-  }
-
-  input{
-    padding: 4px 15px 4px 0;
-
-  }
-
-  #button{
-    display: inline-block;
-    background-color:#fc999b;
-    color:#ffffff;
-    border-radius: 5px;
-    text-align:center;
-    margin-top:2px;
-    padding: 5px 15px;
-  }
-
-  #button:hover{
-    cursor: pointer;
-    opacity: .8;
-  }
-
-  ol {
-    padding-left: 20px;
-  }
-
-  ol li {
-    padding: 5px;color:#000;
-  }
-
-  ol li span{
-    word-break:break-all;
-    width: 70%;
-  }
-
-  ol li:nth-child(even){
-    background: #f4ecec;
-  }
-
-  li:hover{
-    cursor: pointer;
-  }
-
-  #filters{
-    text-align: center;
-    margin-bottom: -10px;
-    margin-top: 40px;
-
-  }
-
-  #filters li a {
-    color: #fc999b;
-    margin: 3px;
-    padding: 3px 7px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 3px;
-  }
-
-  #filters li a.selected {
-    border-color: rgba(175, 47, 47, 0.2);
-  }
-  #filters li a.selected, #filters li a:hover {
-    border-color: rgba(175, 47, 47, 0.1);
-  }
-
-  #filters li {
-    display: inline;
-    margin: 0 0 5px 0;
-    padding: 8px;
-    list-style: none;
-    outline: none;
-  }
-
-  .checked {
-    color: #999;
-    text-decoration: line-through;
-  }
-
-  input[type=checkbox].done-todo {
-
-    margin: 5px 5px 2px 0;
-  }
 </style>
