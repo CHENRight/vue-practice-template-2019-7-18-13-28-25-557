@@ -17,15 +17,12 @@ export default {
 
     UpdateItemContent(context,item){
       axios.put(url + "/" + item.id,item)
-          .then(response => {
-              context.commit('updateItem',response.data)
-              dispatch('loadList');
-          })
+          .then(response => dispatch('loadList'))
           .catch(error => console.log(error));
     },
 
     deleteItem({dispatch},id){
-        axios.delete(url+'/'+id).then(response => dispatch('getItems'))
+        axios.delete(url+'/'+id).then(response => dispatch('loadList'))
     }
 
 }

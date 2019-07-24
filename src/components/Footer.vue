@@ -2,13 +2,13 @@
     <div>
         <ul id="filters">
             <li>
-                <a href="#" data-filter="all" @click="updateStatus(0)">ALL</a>
+                <a href="#" @click="updateStatus(0)">ALL</a>
             </li>
             <li>
-                <a href="#" data-filter="active" @click="updateStatus(1)">Active</a>
+                <a href="#" @click="updateStatus(1)">Active</a>
             </li>
             <li>
-                <a href="#" data-filter="complete" @click="updateStatus(2)">Complete</a>
+                <a href="#" @click="updateStatus(2)">Complete</a>
             </li>
         </ul>
     </div>

@@ -2,26 +2,27 @@
     <div id="container" class="container">
         <div>
             <h2>Jquery To Do List</h2>
-            <p><em>Simple Todo List with adding and filter by diff status.</em></p>
+            <br/>
+            <em>Simple Todo List with adding and filter by diff status.</em>
         </div>
         <div>
             <input type="text" class="input-text" name="ListItem" v-model="item">
             <div id="button" @click="addItem">Add</div>
         </div>
-        <todolist></todolist>
-        <foot @change="changeShow"></foot>
+        <showlist></showlist>
+        <Footer @change="changeStatus"></Footer>
     </div>
 
 </template>
 
 <script>
-    import todolist from './components/ShowList.vue'
-    import foot from './components/Footer.vue'
+    import showlist from './ShowList.vue'
+    import Footer from './Footer.vue'
     export default {
         name: 'container',
         components: {
-            todolist,
-            foot
+            showlist,
+            Footer
         },
         data() {
             return {
@@ -35,8 +36,8 @@
                 this.$store.dispatch('AddItem',{content:this.item,isChecked:false,id:Date.parse(new Date())});
                 this.item = "";
             },
-            changeShow(flag){
-                this.state = flag;
+            changeStatus(flag){
+                this.state.flag = flag;
             }
         },
         mounted(){
@@ -76,6 +77,7 @@
         border-radius: 5px;
         text-align:center;
         margin-top:2px;
+        margin-left: 5px;
         padding: 5px 15px;
     }
 
